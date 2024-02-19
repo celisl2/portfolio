@@ -10,7 +10,7 @@ type Props = { className: string, isMobile?: boolean, onClick?: any };
 function NavigationLinks({ ...props }:Props){
     let childClassNames = "hover:border-b-2 border-indigo-600";
     if(props.isMobile){
-        childClassNames = "hover:border-b-2 border-indigo-600 flex my-8 pl-7"
+        childClassNames = "hover:border-b-2 border-indigo-600 flex my-8"
     }
     return  (
         <ul className={props.className}>
@@ -31,16 +31,16 @@ export default function Nav() {
     }
 
     return (
-        <nav>
-            <div className="flex sm:flex-wrap md:flex-nowrap justify-between m-12">
-                <Link className="hover:border-b-2 border-indigo-600 md:flex-none" href="/">LC</Link>
+        <nav className={ expandMobileNav ? "bg-indigo-950" : undefined}>
+            <div className="flex sm:flex-wrap md:flex-nowrap justify-between p-12">
+                <Link className={ expandMobileNav ? "hover:border-b-2 border-indigo-600 text-indigo-50 md:flex-none" : "hover:border-b-2 border-indigo-600 md:flex-none"} href="/">LC</Link>
                 { showMobileNav ? (
                     <VscMenu className="cursor-pointer sm:inline-block md:hidden" onClick={() => { 
                         setShowMobileNav(false)
                         setExpandMobileNav(true)
                     }} size={26}/>
                 ) : (
-                    <VscClose className="cursor-pointer rounded border-2 border-indigo-600 sm:inline-block md:hidden" onClick={ () => closeMobileNavigation() } size={27} color="4F46E5"/>
+                    <VscClose className="cursor-pointer rounded border-2 border-indigo-600 text-indigo-50 sm:inline-block md:hidden" onClick={ () => closeMobileNavigation() } size={27} color="4F46E5"/>
                 )}
                 { showMobileNav ? <NavigationLinks className='hidden space-x-4 sm:hidden md:inline-flex'/>
                         : <NavigationLinks className='hidden space-x-4 md:inline-flex' />
@@ -48,7 +48,7 @@ export default function Nav() {
             </div>
 
             { expandMobileNav &&
-                <NavigationLinks className="flex flex-col min-h-full m-5 md:hidden" isMobile={expandMobileNav} onClick={closeMobileNavigation}/>
+                <NavigationLinks className="flex flex-col items-center bg-gray-800 text-indigo-50 p-12 min-h-full md:hidden" isMobile={expandMobileNav} onClick={closeMobileNavigation}/>
             }
         </nav>
     )
